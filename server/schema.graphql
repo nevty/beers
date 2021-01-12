@@ -1,0 +1,73 @@
+input QueryParams {
+    abv_gt: Int
+    abv_lt: Int
+    ibu_gt: Int
+    ibu_lt: Int
+    ebc_gt: Int
+    ebc_lt: Int
+    beer_name: String
+    yeast: String
+    brewed_before: String
+    brewed_after: String
+    hops: String
+    malt: String
+    food: String
+    ids: String
+}
+
+type Query {
+    beers(page: Int, limit: Int, queryParams: QueryParams): [Beer]
+    beer(id: Int): Beer!
+}
+
+type Beer {
+    id: ID!
+    abv: Float
+    attenuation_level: Float
+    boil_volume: QuantityFloat
+    brewers_tips: String
+    contributed_by: String
+    description: String
+    ebc: Float
+    first_brewed: String
+    food_pairing: [String]
+    ibu: Float
+    image_url: String
+    ingredients: Ingredients
+    method: Method
+    name: String
+    ph: Float
+    srm: Float
+    tagline: String
+    target_fg: Int
+    target_og: Int
+    volume: QuantityFloat
+}
+
+type Ingredients {
+    hops: [Hops]
+    malt: [Malt]
+    yeast: String
+}
+
+type Hops {
+    add: String
+    amount: QuantityFloat!
+    attribute: String
+    name: String!
+}
+
+type Malt {
+    amount: QuantityFloat!
+    name: String!
+}
+
+type Method {
+    fermetation: Fermetation
+    mash_temp: [MashTemp]
+    twist: String
+}
+
+type MashTemp {duration: Float temp: QuantityFloat}
+type Fermetation {temp: QuantityFloat}
+type QuantityFloat {value: Float unit: String}
